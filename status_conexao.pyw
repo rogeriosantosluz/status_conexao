@@ -17,19 +17,19 @@ class MyWindow:
     def __init__(self, win):
         self.win = win
         self.label_ip=tk.Label(self.win)   
-        self.label_ip.place(x=50, y=20)     
+        self.label_ip.place(x=30, y=20)     
         self.label_operadora=tk.Label(self.win)   
-        self.label_operadora.place(x=50, y=50)     
+        self.label_operadora.place(x=30, y=50)     
         self.label_cidade=tk.Label(self.win)   
-        self.label_cidade.place(x=50, y=80)     
+        self.label_cidade.place(x=30, y=80)     
         self.label_internet=tk.Label(self.win)   
-        self.label_internet.place(x=50, y=110)     
+        self.label_internet.place(x=30, y=110)     
         self.label_vpn=tk.Label(self.win)        
-        self.label_vpn.place(x=50, y=140)
+        self.label_vpn.place(x=30, y=140)
         #self.button_testar=Button(win, text='Iniciar Teste', command=self.retorno_teste)
         #self.button_testar.place(x=120, y=120)
         self.label_testando=tk.Label(self.win)        
-        self.label_testando.place(x=50, y=170)
+        self.label_testando.place(x=30, y=170)
         self.grafico=tk.Frame(self.win)
         self.grafico.place(x=0, y=200)
         self.figure = plt.Figure(figsize=(6,5), dpi=50)
@@ -96,12 +96,14 @@ class MyWindow:
 
     def check_ping(self, hostname):
         try:
-            response = subprocess.check_output("ping " + hostname, shell=True, stdin=subprocess.DEVNULL) 
+            response = subprocess.check_output("ping -t 5 " + hostname, shell=True, stdin=subprocess.DEVNULL) 
         except subprocess.CalledProcessError as e:
             response = None
-
+        print(str(response).split("\\n")[-2])
         if response:
-            pingstatus = int(str(response).split("\\r\\n")[-2].split(" = ")[-1].replace("ms", ""))
+            #pingstatus = int(str(response).split("\\r\\n")[-2].split(" = ")[-1].replace("ms", ""))
+            #round-trip min/avg/max/stddev = 25.939/33.971/48.759/8.369 ms
+            pingstatus = int(str(response).split("\\n")[-2].split(" = ")[1].split("/")[1].split(".")[0])
         else:
             pingstatus = 0
         print(pingstatus)
