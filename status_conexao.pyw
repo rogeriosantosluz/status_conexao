@@ -16,6 +16,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 class MyWindow:
     def __init__(self, win):
         self.win = win
+        self.vpn_out="YOUR_VPN_OUT_IP"
         self.label_ip=tk.Label(self.win)   
         self.label_ip.place(x=30, y=20)     
         self.label_operadora=tk.Label(self.win)   
@@ -46,10 +47,10 @@ class MyWindow:
 
     def retorno_teste(self):
         self.label_testando['text'] = "Testado em: {}".format(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-        ms_internet = self.check_ping("208.67.222.222")
+        ms_internet = self.check_ping(self.vpn_out)
         self.label_internet['text'] = 'INTERNET: {} ms'.format(ms_internet)
         ms_vpn = self.check_ping("8.8.8.8")
-        self.label_vpn['text'] = 'VPN XP: {} ms'.format(ms_vpn)
+        self.label_vpn['text'] = 'VPN: {} ms'.format(ms_vpn)
         if self.retorno_ipapi.get("error"):
             self.label_ip['text'] = "Seu IP: -"
             self.label_operadora['text'] = "Operadora: -"
