@@ -1,3 +1,5 @@
+Desktop app (Win/Mac) to monitor network traffic (using ping) outside and inside a VPN connection
+
 * python3 -m pip install --upgrade pip
 * python3 -m venv env (PS> virtualenv env)
 * source env/bin/activate (PS> .\env\Scripts\activate.bat)
